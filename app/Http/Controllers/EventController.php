@@ -3,64 +3,65 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $events = Event::where('status', 'approved')->get();
+        return view('events.index', compact('events'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function show($id)
+    {
+        $event = Event::findOrFail($id);
+        return view('events.show', compact('event'));
+    }
+
+
     public function create()
     {
-        //
+        return view('events.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'location' => 'required',
+            'date' => 'required|date',
+            'description' => 'required',
+        ]);
+
+        Event::create([
+            'name' => $request->name,
+            'location' => $request->location,
+            'date' => $request->date,
+            'description' => $request->description,
+            'user_id' => Auth::id(),
+            'status' => 'pending',
+        ]);
+
+        return redirect()->route('events.index')->with('success', 'Event berhasil diajukan, menunggu persetujuan admin.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Event $event)
+    public function adminIndex()
     {
-        //
+        $events = Event::where('status', 'pending')->get();
+        return view('admin.events.index', compact('events'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Event $event)
+    public function approve($id)
     {
-        //
+        Event::where('id', $id)->update(['status' => 'approved']);
+        return back()->with('success', 'Event disetujui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Event $event)
+    public function reject($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Event $event)
-    {
-        //
+        Event::where('id', $id)->update(['status' => 'rejected']);
+        return back()->with('error', 'Event ditolak.');
     }
 }
