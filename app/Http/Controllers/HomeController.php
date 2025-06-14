@@ -8,8 +8,8 @@ class HomeController extends Controller
 {
     public function index()
 {
-    $featured_events = Event::latest()->take(6)->get();
+    $featured_events = Event::orderBy('date')->get();
     return view('home', compact('featured_events'));
 }
 }
-
+ 
