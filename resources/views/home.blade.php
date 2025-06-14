@@ -27,30 +27,9 @@
         </a>
     </div>
 
-    <!-- Peta event -->
-    <div style="
-        margin: 30px 0;
-        border: 2px dashed #00bfa6;
-        text-align: center;
-        padding: 50px 20px;
-        background-image: url('/images/map-placeholder.png');
-        background-size: cover;
-        background-position: center;
-        color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-        
-        <h2 style="
-            background: rgba(0, 191, 166, 0.8);
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-size: 24px;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
-            Peta Event Terdekat Dari User
-        </h2>
-    </div>
+     <!-- Peta event -->
+    <div id="map" style="width: 100%; height: 500px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 50px;"></div>
+
 
     <!-- Kartu event -->
     <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
@@ -78,4 +57,81 @@
         @endforeach
     </div>
 </div>
+
+@section('scripts')
+<!-- Leaflet CSS + JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Leaflet Routing Machine -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    if (!navigator.geolocation) {
+        alert("Browser Anda tidak mendukung Geolocation");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+        const userLat = position.coords.latitude;
+        const userLng = position.coords.longitude;
+
+        var map = L.map('map').setView([userLat, userLng], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        L.marker([userLat, userLng]).addTo(map)
+            .bindPopup("<strong>Lokasi Anda</strong>")
+            .openPopup();
+
+        const events = @json($featured_events);
+
+        let nearestDistance = Infinity;
+        let nearestEventLatLng = null;
+        let nearestEventMarker = null; // 👉 kita tambahkan ini
+
+        events.forEach(event => {
+            if (event.latitude && event.longitude) {
+                const distance = map.distance([userLat, userLng], [event.latitude, event.longitude]);
+
+                const marker = L.marker([event.latitude, event.longitude]).addTo(map)
+                    .bindPopup(`<strong>${event.name}</strong><br>${event.location}<br>Jarak: ${(distance/1000).toFixed(2)} km`);
+
+                if (distance < nearestDistance) {
+                    nearestDistance = distance;
+                    nearestEventLatLng = [event.latitude, event.longitude];
+                    nearestEventMarker = marker; // 👉 kita simpan marker terdekat
+                }
+            }
+        });
+
+        if (nearestEventLatLng) {
+            // Buat rute
+            L.Routing.control({
+                waypoints: [
+                    L.latLng(userLat, userLng),
+                    L.latLng(nearestEventLatLng[0], nearestEventLatLng[1])
+                ],
+                routeWhileDragging: false,
+                show: false,
+                addWaypoints: false
+            }).addTo(map);
+
+            // 👉 Buka popup marker terdekat
+            nearestEventMarker.openPopup();
+        }
+
+    }, function(error) {
+        alert("Gagal mendapatkan lokasi Anda: " + error.message);
+    });
+});
+</script>
+
+@endsection
+
+
 @endsection

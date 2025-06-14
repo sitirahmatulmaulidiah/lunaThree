@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body style="font-family: Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 0;">
-
+@yield('scripts')
     <header style="background: linear-gradient(45deg, #00bfa6, #1de9b6); padding: 20px; color: white; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
         <h1 style="margin: 0; font-size: 32px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">
             🌴 Web Sistem Pariwisata
@@ -25,6 +25,5 @@
     <footer style="background: #00bfa6; color: white; text-align: center; padding: 15px 0; box-shadow: 0 -2px 6px rgba(0,0,0,0.1);">
         <p style="margin: 0;">&copy; 2025 Sistem Pariwisata</p>
     </footer>
-
 </body>
 </html>
