@@ -9,24 +9,19 @@ class Event extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'user_id', // Foreign key ke tabel users
+        'user_id',
         'nama_event',
         'deskripsi',
         'tanggal',
+        'waktu',         // <-- BARU
         'tempat_lokasi',
-        'status', // 'menunggu', 'disetujui', 'ditolak'
-        'gambar', // Path ke gambar
+        'status',
+        'gambar',
+        'latitude',
+        'longitude',
     ];
 
-    /**
-     * Mendefinisikan relasi many-to-one: satu Event dimiliki oleh satu User.
-     */
     public function user()
     {
         return $this->belongsTo(User::class);

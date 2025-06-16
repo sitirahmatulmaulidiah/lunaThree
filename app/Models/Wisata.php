@@ -11,11 +11,12 @@ class Wisata extends Model
     protected $table = 'wisata';
 
     protected $fillable = [
-        'kategori_id', 
+        'kategori_id',
         'nama_wisata',
         'deskripsi',
         'harga_tiket',
         'jam_buka',
+        'hari_buka',  // menggunakan JSON untuk menyimpan hari buka
         'lokasi',
         'fasilitas',
         'gambar',
@@ -24,14 +25,14 @@ class Wisata extends Model
     ];
 
     /**
-     * Mendefinisikan relasi "belongsTo" (milik).
-     * * Fungsi ini memberi tahu Laravel bahwa setiap data 'Wisata'
-     * dimiliki oleh satu data 'Kategori'.
-     * Ini memungkinkan kita untuk memanggil $wisata->kategori
-     * di dalam controller atau view.
+     * The attributes that should be cast.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var array
      */
+    protected $casts = [
+        'hari_buka' => 'array', // <-- PENTING: Otomatis konversi JSON ke Array
+    ];
+
     public function kategori()
     {
         return $this->belongsTo(Kategori::class);

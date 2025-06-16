@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relasi ke tabel users
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nama_event');
             $table->text('deskripsi');
             $table->date('tanggal');
+            $table->string('waktu')->nullable(); // Kolom untuk waktu
             $table->string('tempat_lokasi');
-            $table->string('status')->default('menunggu'); // 'menunggu', 'disetujui', 'ditolak'
-            $table->string('gambar')->nullable();
+            $table->string('status')->default('menunggu');
+            $table->string('gambar')->nullable(); // Kolom untuk gambar
+            $table->decimal('latitude', 10, 8)->nullable(); // Kolom untuk peta
+            $table->decimal('longitude', 11, 8)->nullable(); // Kolom untuk peta
             $table->timestamps();
         });
     }

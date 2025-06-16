@@ -55,6 +55,27 @@
         </div>
     </div>
     
+    <!-- === BAGIAN BARU: HARI BUKA === -->
+    <div>
+        <label class="block text-sm font-medium text-gray-700">Hari Buka</label>
+        <div class="mt-2 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+            @php
+                $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                // Jika sedang mode edit, ambil data hari buka yang sudah ada. Jika tidak, buat array kosong.
+                $selectedDays = old('hari_buka', $wisata->hari_buka ?? []);
+            @endphp
+            @foreach($days as $day)
+                <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="hari_buka[]" value="{{ $day }}"
+                           @if(in_array($day, $selectedDays)) checked @endif
+                           class="rounded border-gray-300 text-cyan-600 shadow-sm focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50">
+                    <span>{{ $day }}</span>
+                </label>
+            @endforeach
+        </div>
+    </div>
+    <!-- ============================= -->
+    
     <div>
         <label for="lokasi" class="block text-sm font-medium text-gray-700">Lokasi Tertulis (Alamat)</label>
         <div class="mt-1 flex rounded-md shadow-sm">

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->unsignedInteger('harga_tiket')->default(0);
             $table->string('jam_buka')->nullable();
+            $table->json('hari_buka')->nullable(); 
             $table->text('fasilitas')->nullable();
             $table->string('lokasi')->nullable(); // Untuk alamat tertulis
             $table->string('gambar')->nullable();
