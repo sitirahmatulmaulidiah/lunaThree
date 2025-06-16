@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wisata', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_wisata');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relasi ke tabel users
+            $table->string('nama_event');
             $table->text('deskripsi');
-            $table->unsignedInteger('harga_tiket')->default(0);
-            $table->string('jam_buka')->nullable();
-            $table->text('fasilitas')->nullable();
-            $table->string('lokasi')->nullable(); // Untuk alamat tertulis
+            $table->date('tanggal');
+            $table->string('tempat_lokasi');
+            $table->string('status')->default('menunggu'); // 'menunggu', 'disetujui', 'ditolak'
             $table->string('gambar')->nullable();
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wisata');
+        Schema::dropIfExists('events');
     }
 };
