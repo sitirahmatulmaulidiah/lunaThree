@@ -17,7 +17,11 @@ class EventController extends Controller
     {
         // Hanya ambil event yang statusnya 'disetujui'
         $events = Event::where('status', 'disetujui')->latest()->paginate(9);
-        return view('event.index', compact('events')); // view di resources/views/event/index.blade.php
+        // Ambil semua event yang disetujui untuk map (tanpa pagination)
+        $featured_events = Event::where('status', 'disetujui')->get();
+
+        // Kirim kedua variable ke view
+        return view('event.index', compact('events', 'featured_events'));
     }
 
     /**
@@ -57,7 +61,6 @@ class EventController extends Controller
             'tanggal' => 'required|date',
             'tempat_lokasi' => 'required|string',
             'deskripsi' => 'required|string',
-            // 'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Jika ada upload gambar
         ]);
 
         // Membuat event baru

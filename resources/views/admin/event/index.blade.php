@@ -19,7 +19,7 @@
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $event->nama_event }}</td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $event->user->name }}</td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <!-- Status Badge -->
+                    <!-- Status -->
                     @if ($event->status == 'disetujui')
                         <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">Disetujui</span>
                     @elseif ($event->status == 'ditolak')

@@ -22,6 +22,8 @@ Route::get('/wisata', [WisataController::class, 'index'])->name('wisata.index');
 Route::get('/wisata/{id}', [WisataController::class, 'show'])->name('wisata.show');
 Route::get('/event', [EventController::class, 'index'])->name('event.index');
 Route::get('/event/{id}', [EventController::class, 'show'])->name('event.show');
+Route::view('/tentang-kami', 'tentang-kami')->name('tentang-kami');
+
 
 // RUTE UNTUK GUEST (BELUM LOGIN)
 Route::middleware('guest')->group(function () {

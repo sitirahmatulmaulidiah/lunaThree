@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('wisata', function (Blueprint $table) {
-            // HAPUS SEMUA BARIS YANG MENAMBAHKAN KOLOM LAMA (lokasi, fasilitas, gambar, jam_buka)
             // TUGAS FILE INI HANYA MENAMBAHKAN KOORDINAT PETA.
-
             // Kolom untuk koordinat peta. 'decimal' memberikan presisi yang baik.
             $table->decimal('latitude', 10, 8)->nullable()->after('gambar');
             $table->decimal('longitude', 11, 8)->nullable()->after('latitude');

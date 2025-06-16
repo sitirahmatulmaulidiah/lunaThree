@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Wisata; // Pastikan Model Wisata sudah dibuat
-use App\Models\Event;  // Pastikan Model Event sudah dibuat
+use App\Models\Wisata; 
+use App\Models\Event; 
 
 class HomeController extends Controller
 {
     /**
      * Menampilkan halaman utama (beranda).
      *
-     * Halaman ini akan menampilkan beberapa data wisata dan event terbaru
-     * yang sudah disetujui untuk menarik perhatian pengunjung.
+     * Halaman ini akan menampilkan beberapa data wisata dan event terbaru yang sudah disetujui
      *
      * @return \Illuminate\View\View
      */

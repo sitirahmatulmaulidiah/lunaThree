@@ -18,7 +18,7 @@ class PengajuanEventController extends Controller
         $request->validate([
             'nama_event' => 'required|string|max:255',
             'tanggal' => 'required|date',
-            'waktu' => 'nullable|string|max:255', // <-- Validasi untuk waktu
+            'waktu' => 'nullable|string|max:255',
             'tempat_lokasi' => 'required|string',
             'deskripsi' => 'required|string',
             'latitude' => 'nullable|numeric',

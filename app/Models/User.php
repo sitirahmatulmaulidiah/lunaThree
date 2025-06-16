@@ -43,9 +43,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    /**
-     * Mendefinisikan relasi one-to-many: satu User bisa memiliki banyak Event.
-     */
+    // Mendefinisikan relasi one-to-many: satu User bisa memiliki banyak Event.
     public function events()
     {
         return $this->hasMany(Event::class);

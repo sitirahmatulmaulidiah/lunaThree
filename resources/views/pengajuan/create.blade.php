@@ -27,7 +27,7 @@
                     <input type="file" name="gambar" id="gambar" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-50 file:text-cyan-700 hover:file:bg-cyan-100">
                 </div>
 
-                <!-- PERUBAHAN DI SINI: TANGGAL DAN WAKTU DALAM SATU BARIS -->
+                <!-- INFORMASI DALAM SATU BARIS -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="tanggal" class="block text-sm font-medium text-gray-700">Tanggal Pelaksanaan</label>
@@ -71,7 +71,7 @@
             </div>
             
             <script>
-                // Script Peta Interaktif (sama seperti form wisata)
+                // Script Peta Interaktif
                 const defaultLat = -3.3176;
                 const defaultLng = 114.5901;
                 const map = L.map('map').setView([defaultLat, defaultLng], 13);

@@ -8,7 +8,7 @@
 
     {{-- Gradient overlay untuk membuat teks di bagian bawah lebih terbaca --}}
     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-    
+
     <div class="relative container mx-auto px-6 h-full flex flex-col items-center justify-center text-center text-white">
         <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Temukan Pesona Kalimantan Selatan</h1>
         <p class="text-lg md:text-xl max-w-3xl mb-8">Jelajahi keindahan alam, budaya, dan kuliner khas yang tak terlupakan.</p>
@@ -21,7 +21,9 @@
 <!-- Destinasi Wisata Section -->
 <div class="py-16 bg-gray-50">
     <div class="container mx-auto px-6">
-        <h2 class="section-title mb-12">Destinasi Wisata Populer</h2>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-4 relative inline-block after:content-[''] after:block after:w-30 after:h-1 after:bg-cyan-500 after:mx-auto after:mt-2 animate-fade-in-down">
+            🌄 Destinasi Wisata Terbaru
+        </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse ($wisatas as $wisata)
             {{-- Card dengan efek hover --}}
@@ -48,7 +50,9 @@
 <!-- Event Section -->
 <div class="py-16">
     <div class="container mx-auto px-6">
-        <h2 class="section-title mb-12">Event Mendatang</h2>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-4 relative inline-block after:content-[''] after:block after:w-30 after:h-1 after:bg-cyan-500 after:mx-auto after:mt-2 animate-fade-in-down">
+            🎉 Event Terbaru
+        </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse ($events as $event)
             <a href="{{ route('event.show', $event->id) }}" class="group block bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
